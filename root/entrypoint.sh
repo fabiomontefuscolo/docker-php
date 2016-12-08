@@ -3,7 +3,7 @@ if [ -n "$XDEBUG" ];
 then
     inifile="/usr/local/etc/php/conf.d/pecl-xdebug.ini"
     extfile="$(find /usr/local/lib/php/extensions/ -name xdebug.so)";
-    remote_port="${XDEBUG_IDEKEY:-9000}";
+    remote_port="${XDEBUG_REMOTE_PORT:-9000}";
     idekey="${XDEBUG_IDEKEY:-xdbg}";
 
     if [ -f "$extfile" ] && [ ! -f "$inifile" ];

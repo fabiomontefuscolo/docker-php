@@ -2,9 +2,9 @@ FROM php:5.6-apache
 MAINTAINER Fabio Montefuscolo <fabio.montefuscolo@gmail.com>
 
 RUN a2enmod rewrite expires ssl \
-    && apt-get update && apt-get install -y libpng12-dev libjpeg-dev libmemcached-dev unzip \
+    && apt-get update && apt-get install -y libpng12-dev libjpeg-dev libmemcached-dev libmcrypt-dev unzip \
     && docker-php-ext-configure gd --with-png-dir=/usr --with-jpeg-dir=/usr \
-    && docker-php-ext-install gd mysqli opcache zip mbstring \
+    && docker-php-ext-install calendar gd mysqli opcache zip mbstring mcrypt \
     && printf "yes\n" | pecl install memcache \
     && printf "yes\n" | pecl install memcached \
     && printf "yes\n" | pecl install xdebug \
