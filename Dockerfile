@@ -2,7 +2,7 @@ FROM php:5.6-apache
 MAINTAINER Fabio Montefuscolo <fabio.montefuscolo@gmail.com>
 
 RUN a2enmod rewrite expires ssl \
-    && apt-get update && apt-get install -y libpng12-dev libjpeg-dev libmemcached-dev \
+    && apt-get update && apt-get install -y libpng12-dev libjpeg-dev libmemcached-dev unzip \
     && docker-php-ext-configure gd --with-png-dir=/usr --with-jpeg-dir=/usr \
     && docker-php-ext-install gd mysqli opcache zip mbstring \
     && printf "yes\n" | pecl install memcache \
@@ -13,7 +13,8 @@ RUN a2enmod rewrite expires ssl \
     && curl -s -o installer.php https://getcomposer.org/installer \
     && php installer.php --install-dir=/usr/local/bin/ --filename=composer \
     && rm installer.php \
-    && rm -rf /var/lib/apt/lists/*
+    && rm -rf /var/lib/apt/lists/* \
+    && rm -rf /tmp/*
 
 COPY root/ /
 
