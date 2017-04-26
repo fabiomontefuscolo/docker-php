@@ -1,5 +1,5 @@
 FROM php:5.6-apache
-MAINTAINER Fabio Montefuscolo <fabio.montefuscolo@gmail.com>
+MAINTAINER Hacklab <contato@hacklab.com.br>
 
 RUN a2enmod rewrite expires ssl \
     && apt-get update && apt-get install -y libpng12-dev libjpeg-dev libmemcached-dev libmcrypt-dev unzip \
