@@ -14,7 +14,13 @@ RUN a2enmod rewrite expires ssl \
     && php installer.php --install-dir=/usr/local/bin/ --filename=composer \
     && rm installer.php \
     && rm -rf /var/lib/apt/lists/* \
-    && rm -rf /tmp/*
+    && rm -rf /tmp/* \
+    && { \
+        echo "file_uploads = On"; \
+        echo "upload_max_filesize = 2048M"; \
+        echo "post_max_size = 2048M"; \
+        echo "max_file_uploads = 20"; \
+    } > /usr/local/etc/php/conf.d/docker-uploads.ini
 
 COPY root/ /
 
