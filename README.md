@@ -32,7 +32,7 @@ docker run --name elephant -v /path/to/project:/var/www/html -d hacklabr/php
 When creating your container, enable XDebug by setting env variable `XDEBUG`
 
 ```
-docker run --name elephant -e XDEBUG=1 -v /path/to/project:/var/www/html -d hacklabr/php
+docker run --name elephant -e XDEBUG=1 -v /path/to/project:/var/www/html -d hacklab/php
 ```
 
 Tell your Atom about folder mapping by editin `config.cson`. You have to configure the
