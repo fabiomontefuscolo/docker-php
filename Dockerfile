@@ -24,4 +24,4 @@ COPY root/ /
 
 EXPOSE 9000
 ENTRYPOINT ["/entrypoint.sh"]
-CMD ["apache2-foreground"]
+CMD ["php-fpm"]
