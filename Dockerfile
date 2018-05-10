@@ -1,5 +1,5 @@
 FROM php:7-apache
-MAINTAINER Hacklab <contato@hacklab.com.br>
+MAINTAINER Fabio Montefuscolo <fabio.montefuscolo@gmail.com>
 
 RUN a2enmod rewrite expires \
     && apt-get update \
@@ -16,7 +16,14 @@ RUN a2enmod rewrite expires \
     && echo "extension=ldap.so" > /usr/local/etc/php/conf.d/docker-php-ext-ldap.ini \
     && curl -s -o installer.php https://getcomposer.org/installer \
     && php installer.php --install-dir=/usr/local/bin/ --filename=composer \
+    && { \
+        COMPOSER_HOME=/usr/local/share/composer \
+        COMPOSER_BIN_DIR=/usr/local/bin \
+        COMPOSER_CACHE_DIR="/tmp/root/composer" \
+        composer global require psy/psysh --prefer-stable; \
+    } \
     && rm installer.php \
+    && apt-get purge -y libldb-dev libldap2-dev libmemcached-dev libpng-dev libjpeg-dev \
     && rm -rf /var/lib/apt/lists/* \
     && rm -rf /tmp/* \
     && { \
