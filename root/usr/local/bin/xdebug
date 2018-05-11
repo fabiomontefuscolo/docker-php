@@ -1,0 +1,33 @@
+#!/bin/bash
+
+PHP="/usr/local/bin/php"
+
+if [ -z "$XDEBUG_REMOTE_HOST" ];
+then
+    remote_host=$(awk '{
+            if($2 == "00000000" && $8 == "00000000") {
+                printf "%d.", "0x" substr($3, 7, 2);
+                printf "%d.", "0x" substr($3, 5, 2);
+                printf "%d.", "0x" substr($3, 3, 2);
+                printf "%d",  "0x" substr($3, 1, 2);
+            }
+        }' /proc/net/route)
+else
+    remote_host="${XDEBUG_REMOTE_HOST}"
+fi
+
+inifile="/usr/local/etc/php/conf.d/pecl-xdebug.ini"
+extfile="$(find /usr/local/lib/php/extensions/ -name xdebug.so)";
+remote_port=$($PHP -r 'echo ini_get("xdebug.remote_port");');
+idekey=$($PHP -r 'echo ini_get("xdebug.idekey");');
+
+$PHP \
+    -d "zend_extension=${extfile}" \
+    -d "xdebug.idekey=${idekey:-xdbg}" \
+    -d "xdebug.remote_enable=1" \
+    -d "xdebug.remote_connect_back=1" \
+    -d "xdebug.remote_autostart=1" \
+    -d "xdebug.remote_port=${remote_port:-9000}" \
+    -d "xdebug.remote_host=${remote_host:-172.17.0.x}" \
+    -d "xdebug.remote_handler=dbgp" \
+    "$@"
