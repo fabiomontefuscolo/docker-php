@@ -28,6 +28,6 @@ $PHP \
     -d "xdebug.remote_connect_back=1" \
     -d "xdebug.remote_autostart=1" \
     -d "xdebug.remote_port=${remote_port:-9000}" \
-    -d "xdebug.remote_host=${remote_host:-172.17.0.x}" \
+    -d "xdebug.remote_host=${remote_host:-172.17.0.1}" \
     -d "xdebug.remote_handler=dbgp" \
     "$@"
