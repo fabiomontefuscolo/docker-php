@@ -1,4 +1,4 @@
-FROM php:7-apache
+FROM php:5-apache
 MAINTAINER Fabio Montefuscolo <fabio.montefuscolo@gmail.com>
 
 RUN a2enmod rewrite expires \
@@ -8,9 +8,9 @@ RUN a2enmod rewrite expires \
     && ln -s /usr/lib/x86_64-linux-gnu/liblber.so /usr/lib/liblber.so \
     && docker-php-ext-configure gd --with-png-dir=/usr --with-jpeg-dir=/usr \
     && docker-php-ext-install calendar gd ldap mysqli mbstring pdo_mysql zip \
-    && printf "yes\n" | pecl install xdebug \
-    && printf "no\n"  | pecl install apcu-beta \
-    && printf "no\n"  | pecl install memcached \
+    && printf "yes\n" | pecl install xdebug-2.5.5 \
+    && printf "no\n"  | pecl install apcu-4.0.11 \
+    && printf "no\n"  | pecl install memcached-2.2.0 \
     && echo 'extension=apcu.so' > /usr/local/etc/php/conf.d/pecl-apcu.ini \
     && echo 'extension=memcached.so' > /usr/local/etc/php/conf.d/pecl-memcached.ini \
     && echo "extension=ldap.so" > /usr/local/etc/php/conf.d/docker-php-ext-ldap.ini \
