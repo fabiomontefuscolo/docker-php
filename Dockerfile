@@ -3,11 +3,11 @@ MAINTAINER Fabio Montefuscolo <fabio.montefuscolo@gmail.com>
 
 RUN a2enmod rewrite expires \
     && apt-get update \
-    && apt-get install -y libldb-dev libldap2-dev libmemcached-dev libpng-dev libjpeg-dev unzip \
+    && apt-get install -y libldb-dev libldap2-dev libmcrypt-dev libmemcached-dev libpng-dev libjpeg-dev unzip \
     && ln -s /usr/lib/x86_64-linux-gnu/libldap.so /usr/lib/libldap.so \
     && ln -s /usr/lib/x86_64-linux-gnu/liblber.so /usr/lib/liblber.so \
     && docker-php-ext-configure gd --with-png-dir=/usr --with-jpeg-dir=/usr \
-    && docker-php-ext-install calendar gd ldap mysqli mbstring pdo_mysql zip \
+    && docker-php-ext-install calendar gd ldap mysqli mbstring mcrypt pdo_mysql zip \
     && printf "yes\n" | pecl install xdebug-2.5.5 \
     && printf "no\n"  | pecl install apcu-4.0.11 \
     && printf "no\n"  | pecl install memcached-2.2.0 \
@@ -23,7 +23,7 @@ RUN a2enmod rewrite expires \
         composer global require psy/psysh --prefer-stable; \
     } \
     && rm installer.php \
-    && apt-get purge -y libldb-dev libldap2-dev libmemcached-dev libpng-dev libjpeg-dev \
+    && apt-get purge -y libldb-dev libldap2-dev libmcrypt-dev libmemcached-dev libpng-dev libjpeg-dev \
     && rm -rf /var/lib/apt/lists/* \
     && rm -rf /tmp/* \
     && { \
