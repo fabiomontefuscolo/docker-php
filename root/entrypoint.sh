@@ -1,4 +1,8 @@
 #!/bin/bash
+
+export USERNAME=`awk -F: '{ if ($3 == '$UID') { print $1 } }' /etc/passwd`
+export COMPOSER_CACHE_DIR="/tmp/$USERNAME/composer"
+
 if [ -n "$XDEBUG" ];
 then
     inifile="/usr/local/etc/php/conf.d/pecl-xdebug.ini"
