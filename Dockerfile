@@ -1,6 +1,8 @@
 FROM php:5-apache
 MAINTAINER Fabio Montefuscolo <fabio.montefuscolo@gmail.com>
 
+LABEL PHP_VERSION=5.6.40
+
 RUN a2enmod rewrite expires \
     && apt-get update \
     && apt-get install -y libldb-dev libldap2-dev libmcrypt-dev libmemcached-dev libpng-dev libjpeg-dev unzip \
