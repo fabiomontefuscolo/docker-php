@@ -1,9 +1,10 @@
 FROM php:7.1-apache
 
 LABEL mantainer "TikiWiki <tikiwiki-devel@lists.sourceforge.net>"
-LABEL PHP_VERSION=7.3.4
+LABEL PHP_VERSION=7.1.30
 
-RUN apt-get update \
+RUN a2enmod rewrite expires \
+    && apt-get update \
     && apt-get install -y libldb-dev libldap2-dev libmemcached-dev libpng-dev libjpeg-dev libzip-dev unzip \
     && ln -s /usr/lib/x86_64-linux-gnu/libldap.so /usr/lib/libldap.so \
     && ln -s /usr/lib/x86_64-linux-gnu/liblber.so /usr/lib/liblber.so \
