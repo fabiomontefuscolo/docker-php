@@ -1,5 +1,7 @@
-FROM php:7.2-fpm
-MAINTAINER Fabio Montefuscolo <fabio.montefuscolo@gmail.com>
+FROM php:7-fpm
+
+LABEL mantainer "TikiWiki <tikiwiki-devel@lists.sourceforge.net>"
+LABEL PHP_VERSION=7.3.4
 
 RUN apt-get update \
     && apt-get install -y libldb-dev libldap2-dev libmemcached-dev libpng-dev libjpeg-dev libzip-dev unzip \
@@ -22,7 +24,7 @@ RUN apt-get update \
         composer global require psy/psysh --prefer-stable; \
     } \
     && rm installer.php \
-    && apt-get purge -y libldb-dev libldap2-dev libmemcached-dev libpng-dev libzip-dev libjpeg-dev \
+    && apt-get purge -y libldb-dev libldap2-dev libmemcached-dev libpng-dev libjpeg-dev libzip-dev \
     && rm -rf /var/lib/apt/lists/* \
     && rm -rf /tmp/* \
     && { \
@@ -33,7 +35,7 @@ RUN apt-get update \
     } > /usr/local/etc/php/conf.d/docker-uploads.ini
 
 COPY root/ /
-
 EXPOSE 9000
+
 ENTRYPOINT ["/entrypoint.sh"]
 CMD ["php-fpm"]
