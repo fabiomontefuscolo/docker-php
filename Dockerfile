@@ -1,5 +1,5 @@
 FROM php:5-apache
-MAINTAINER Fabio Montefuscolo <fabio.montefuscolo@gmail.com>
+LABEL mantainer "TikiWiki <tikiwiki-devel@lists.sourceforge.net>"
 
 LABEL PHP_VERSION=5.6.40
 
