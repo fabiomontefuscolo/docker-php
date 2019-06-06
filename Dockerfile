@@ -38,4 +38,4 @@ COPY root/ /
 EXPOSE 80 443
 
 ENTRYPOINT ["/entrypoint.sh"]
-CMD ["psysh"]
+CMD ["apache2-foreground"]
