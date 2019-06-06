@@ -3,27 +3,55 @@
 A PHP image extended to bundle libraries commonly used in PHP projects. The following
 libraires are included:
 
-* libpng12
-* libjpeg
-* libmemcached
-* libmcrypt
+* apcu
+* calendar
+* Core
+* ctype
+* curl
+* date
+* dom
+* fileinfo
+* filter
+* ftp
 * gd
-* mysqli
-* opcache
-* zip
+* hash
+* iconv
+* json
+* ldap
+* libxml
 * mbstring
-* mcrypt
-* memcache
 * memcached
+* mysqli
+* mysqlnd
+* openssl
+* pcre
+* PDO
+* pdo_mysql
+* pdo_sqlite
+* Phar
+* posix
+* readline
+* Reflection
+* session
+* SimpleXML
+* sodium
+* SPL
+* sqlite3
+* standard
+* tokenizer
 * xdebug
-
+* xml
+* xmlreader
+* xmlwriter
+* zip
+* zlib
 
 ## Usage
 
 ### Simple server
 
 ```
-docker run --name elephant -v /path/to/project:/var/www/html -d hacklabr/php
+docker run --name tikiwiki -v /path/tiki-source:/var/www/html -d tikiwiki/php:7.1-apache
 ```
 
 
@@ -32,7 +60,7 @@ docker run --name elephant -v /path/to/project:/var/www/html -d hacklabr/php
 When creating your container, enable XDebug by setting env variable `XDEBUG`
 
 ```
-docker run --name elephant -e XDEBUG=1 -v /path/to/project:/var/www/html -d hacklab/php
+docker run --name tikiwiki -e XDEBUG=1 -v /path/tiki-source:/var/www/html -d tikiwiki/php:7.1-apache
 ```
 
 Tell your Atom about folder mapping by editin `config.cson`. You have to configure the
@@ -42,7 +70,7 @@ section called "php-debug". It should look like this:
   "php-debug":
     PathMaps: [
       "remotepath;localpath"
-      "/var/www/html/;/home/fabio/devel/catraca/src/"
+      "/var/www/html/;/path/tiki-source"
     ]
     PhpException:
       CatchableFatalError: false
@@ -65,8 +93,8 @@ upload 2GB files.
 
 
 ```
-FROM hacklab/php
-LABEL mantainer "Hacklab <contato@hacklab.com.br>"
+FROM tikiwiki/php:7.1-apache
+LABEL mantainer "Some Developer <developer@example.com>"
 
 RUN {                                      \
         echo "file_uploads = On";          \
@@ -77,4 +105,3 @@ RUN {                                      \
 
 USER root
 ```
-
