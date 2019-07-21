@@ -51,7 +51,7 @@ libraires are included:
 ### Simple server
 
 ```
-docker run --name tikiwiki -v /path/tiki-source:/var/www/html -d tikiwiki/php:7.1-apache
+docker run --name tikiwiki -v /path/tiki-source:/var/www/html -d tikiwiki/php:7.2-apache
 ```
 
 
@@ -60,7 +60,7 @@ docker run --name tikiwiki -v /path/tiki-source:/var/www/html -d tikiwiki/php:7.
 When creating your container, enable XDebug by setting env variable `XDEBUG`
 
 ```
-docker run --name tikiwiki -e XDEBUG=1 -v /path/tiki-source:/var/www/html -d tikiwiki/php:7.1-apache
+docker run --name tikiwiki -e XDEBUG=1 -v /path/tiki-source:/var/www/html -d tikiwiki/php:7.2-apache
 ```
 
 Tell your Atom about folder mapping by editin `config.cson`. You have to configure the
@@ -93,7 +93,7 @@ upload 2GB files.
 
 
 ```
-FROM tikiwiki/php:7.1-apache
+FROM tikiwiki/php:7.2-apache
 LABEL mantainer "Some Developer <developer@example.com>"
 
 RUN {                                      \

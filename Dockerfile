@@ -1,7 +1,7 @@
-FROM php:7.1-apache
+FROM php:7.2-apache
 
 LABEL mantainer "TikiWiki <tikiwiki-devel@lists.sourceforge.net>"
-LABEL PHP_VERSION=7.1.30
+LABEL PHP_VERSION=7.2.20
 
 RUN a2enmod rewrite expires \
     && apt-get update \
