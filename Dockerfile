@@ -33,7 +33,6 @@ RUN apt-get update \
     } > /usr/local/etc/php/conf.d/docker-uploads.ini
 
 COPY root/ /
-EXPOSE 80 443
 
 ENTRYPOINT ["/entrypoint.sh"]
 CMD ["psysh"]
