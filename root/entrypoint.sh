@@ -39,4 +39,26 @@ then
     unset extfile remote_port idekey;
 fi
 
+if [ "$UID" = "0" ];
+then
+    if [[ "$WWW_DATA_ID" =~ ^([0-9][0-9]*):([0-9][0-9]*)$ ]];
+    then
+        usermod -u "${BASH_REMATCH[1]}" www-data
+        groupmod -g "${BASH_REMATCH[2]}" www-data
+        unset "WWW_DATA_ID"
+    fi
+
+    if [[ "$WWW_DATA_UID" =~ ^([0-9][0-9]*)$ ]];
+    then
+        usermod -u "${BASH_REMATCH[1]}" www-data
+        unset "WWW_DATA_UID"
+    fi
+
+    if [[ "$WWW_DATA_GID" =~ ^([0-9][0-9]*)$ ]];
+    then
+        groupmod -g "${BASH_REMATCH[1]}" www-data
+        unset "WWW_DATA_GID"
+    fi
+fi
+
 exec "$@"
