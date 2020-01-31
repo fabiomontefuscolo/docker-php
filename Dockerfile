@@ -1,7 +1,6 @@
-FROM php:7.2.27-fpm
+FROM php:7.3-fpm
 
 LABEL mantainer "TikiWiki <tikiwiki-devel@lists.sourceforge.net>"
-LABEL PHP_VERSION=7.2.27
 
 RUN apt-get update \
     && apt-get install -y libldb-dev libldap2-dev libmemcached-dev libpng-dev libjpeg-dev libzip-dev libicu-dev unzip \
