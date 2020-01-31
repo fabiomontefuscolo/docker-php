@@ -1,15 +1,16 @@
-FROM php:7.2-apache
+FROM php:7.2.27-apache
 
 LABEL mantainer "TikiWiki <tikiwiki-devel@lists.sourceforge.net>"
-LABEL PHP_VERSION=7.2.20
+LABEL PHP_VERSION=7.2.27
 
 RUN a2enmod rewrite expires \
     && apt-get update \
-    && apt-get install -y libldb-dev libldap2-dev libmemcached-dev libpng-dev libjpeg-dev libzip-dev unzip \
+    && apt-get install -y libldb-dev libldap2-dev libmemcached-dev libpng-dev libjpeg-dev libzip-dev libicu-dev unzip \
     && ln -s /usr/lib/x86_64-linux-gnu/libldap.so /usr/lib/libldap.so \
     && ln -s /usr/lib/x86_64-linux-gnu/liblber.so /usr/lib/liblber.so \
+    && ln -s /usr/bin/pkg-config /usr/local/bin/icu-config \
     && docker-php-ext-configure gd --with-png-dir=/usr --with-jpeg-dir=/usr \
-    && docker-php-ext-install calendar gd ldap mysqli mbstring pdo_mysql zip \
+    && docker-php-ext-install calendar gd intl ldap mysqli mbstring pdo_mysql zip \
     && printf "yes\n" | pecl install xdebug \
     && printf "no\n"  | pecl install apcu-beta \
     && printf "no\n"  | pecl install memcached \
@@ -25,7 +26,8 @@ RUN a2enmod rewrite expires \
         composer global require psy/psysh --prefer-stable; \
     } \
     && rm installer.php \
-    && apt-get purge -y libldb-dev libldap2-dev libmemcached-dev libpng-dev libjpeg-dev libzip-dev \
+    && rm /usr/local/bin/icu-config \
+    && apt-get purge -y libldb-dev libldap2-dev libmemcached-dev libpng-dev libjpeg-dev libzip-dev libicu-dev \
     && rm -rf /var/lib/apt/lists/* \
     && rm -rf /tmp/* \
     && { \
