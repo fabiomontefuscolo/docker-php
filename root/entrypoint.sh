@@ -22,7 +22,7 @@ then
             echo "xdebug.remote_port=${remote_port}";
         } > $inifile;
 
-        if [ $remote_os = "macos" ] || [ $remote_os = "windows"];
+        if [ $remote_os = "macos" ] || [ $remote_os = "windows" ];
         then
             {
                 echo "xdebug.remote_connect_back=0";
