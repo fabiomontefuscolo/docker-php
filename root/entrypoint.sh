@@ -61,4 +61,16 @@ then
     fi
 fi
 
+if [ -d "/entrypoint.d" ];
+then
+    for extra in /entrypoint.d/*; do
+        case "$extra" in
+            *.sh)     . "$extra" ;;
+            *.php)    /usr/local/bin/php  "$extra" ;;
+        esac
+        echo
+    done
+    unset extra
+fi
+
 exec "$@"
