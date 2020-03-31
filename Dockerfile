@@ -2,10 +2,20 @@ FROM php:7
 LABEL mantainer "TikiWiki <tikiwiki-devel@lists.sourceforge.net>"
 
 RUN apt-get update \
-    && apt-get install -y libldb-dev libldap2-dev libmemcached-dev libpng-dev libjpeg-dev libzip-dev unzip \
+    && apt-get install -y \
+        libfreetype6-dev \
+        libjpeg-dev \
+        libldap2-dev \
+        libldb-dev \
+        libmemcached-dev \
+        libonig-dev \
+        libpng++-dev \
+        libzip-dev \
+        zlib1g-dev \
+        unzip \
     && ln -s /usr/lib/x86_64-linux-gnu/libldap.so /usr/lib/libldap.so \
     && ln -s /usr/lib/x86_64-linux-gnu/liblber.so /usr/lib/liblber.so \
-    && docker-php-ext-configure gd --with-png-dir=/usr --with-jpeg-dir=/usr \
+    && docker-php-ext-configure gd --with-freetype --with-jpeg \
     && docker-php-ext-install calendar gd ldap mysqli mbstring pdo_mysql zip \
     && printf "yes\n" | pecl install xdebug \
     && printf "no\n"  | pecl install apcu-beta \
@@ -22,7 +32,16 @@ RUN apt-get update \
         composer global require psy/psysh --prefer-stable; \
     } \
     && rm installer.php \
-    && apt-get purge -y libldb-dev libldap2-dev libmemcached-dev libpng-dev libjpeg-dev libzip-dev \
+    && apt-get purge -y \
+        libfreetype6-dev \
+        libjpeg-dev \
+        libldap2-dev \
+        libldb-dev \
+        libmemcached-dev \
+        libonig-dev \
+        libpng++-dev \
+        libzip-dev \
+        zlib1g-dev \
     && rm -rf /var/lib/apt/lists/* \
     && rm -rf /tmp/* \
     && { \
