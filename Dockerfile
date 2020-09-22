@@ -1,9 +1,12 @@
 FROM php:7-fpm
+
 LABEL mantainer "TikiWiki <tikiwiki-devel@lists.sourceforge.net>"
+LABEL PHP_VERSION=7.4.10
 
 RUN apt-get update \
     && apt-get install -y \
         libfreetype6-dev \
+        libicu-dev \
         libjpeg-dev \
         libldap2-dev \
         libldb-dev \
@@ -11,12 +14,12 @@ RUN apt-get update \
         libonig-dev \
         libpng++-dev \
         libzip-dev \
-        zlib1g-dev \
         unzip \
+        zlib1g-dev \
     && ln -s /usr/lib/x86_64-linux-gnu/libldap.so /usr/lib/libldap.so \
     && ln -s /usr/lib/x86_64-linux-gnu/liblber.so /usr/lib/liblber.so \
     && docker-php-ext-configure gd --with-freetype --with-jpeg \
-    && docker-php-ext-install calendar gd ldap mysqli mbstring pdo_mysql zip \
+    && docker-php-ext-install calendar gd intl ldap mysqli mbstring pdo_mysql zip \
     && printf "yes\n" | pecl install xdebug \
     && printf "no\n"  | pecl install apcu-beta \
     && printf "no\n"  | pecl install memcached \
@@ -34,6 +37,7 @@ RUN apt-get update \
     && rm installer.php \
     && apt-get purge -y \
         libfreetype6-dev \
+        libicu-dev \
         libjpeg-dev \
         libldap2-dev \
         libldb-dev \
@@ -41,6 +45,7 @@ RUN apt-get update \
         libonig-dev \
         libpng++-dev \
         libzip-dev \
+        unzip \
         zlib1g-dev \
     && rm -rf /var/lib/apt/lists/* \
     && rm -rf /tmp/* \
